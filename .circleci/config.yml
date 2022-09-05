@@ -6,28 +6,6 @@ orbs:
   php: circleci/php@1.1.0
 
 jobs:
-  test_old_php_72:
-    docker:
-      - image: circleci/php:7.2
-    steps:
-      - checkout
-      - run: php --version
-      - php/install-composer
-      - run: rm composer-setup.php
-      - php/install-packages
-      - run: vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff
-      - run: vendor/bin/phpunit --verbose
-  test_old_php_73:
-    docker:
-      - image: circleci/php:7.3
-    steps:
-      - checkout
-      - run: php --version
-      - php/install-composer
-      - run: rm composer-setup.php
-      - php/install-packages
-      - run: vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff
-      - run: vendor/bin/phpunit --verbose
   test_current:
     parameters:
       php-version:
@@ -46,14 +24,9 @@ jobs:
       - run: vendor/bin/phpunit --verbose
 
 workflows:
-  # build:
-  #   jobs:
-  #     - build
   all-tests:
     jobs:
-      - test_old_php_72
-      - test_old_php_73
       - test_current:
           matrix:
             parameters:
-              php-version: ["7.4"]
+              php-version: ["7.4", "8.0", "8.1"]

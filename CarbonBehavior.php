@@ -116,7 +116,7 @@ class CarbonBehavior extends Behavior
             $oldAttributeValue = $oldAttributes[$attribute];
 
             if ($this->owner->$attribute instanceof Carbon) {
-                //If old attribute value is an integer, then we convert the current attribute value to the timestamp for prevent db errors
+                // If old attribute value is an integer, then we convert the current attribute value to the timestamp for prevent db errors
                 if (is_numeric($oldAttributeValue)) {
                     $this->owner->$attribute = $this->owner->$attribute->timestamp;
                 }
