@@ -1,17 +1,28 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
+    ->ignoreDotFiles(false)
+    ->ignoreVCSIgnored(true)
     ->exclude('vendor')
     ->in([__DIR__]);
 
-$config = PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+$config
+    ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setRules([
+        '@PHP74Migration' => true,
+        // '@PHP74Migration:risky' => true,
+        // '@PHPUnit75Migration:risky' => true,
+        // '@PhpCsFixer' => true,
+        // '@PhpCsFixer:risky' => true,
         '@Symfony' => true,
         'phpdoc_align' => false,
         'phpdoc_summary' => false,
-        'phpdoc_inline_tag' => false,
-        'pre_increment' => false,
+        'general_phpdoc_tag_rename' => false,
+        'phpdoc_inline_tag_normalizer' => false,
+        'phpdoc_tag_type' => false,
+        'increment_style' => ['style' => 'pre'],
         'heredoc_to_nowdoc' => false,
         'cast_spaces' => false,
         'include' => false,

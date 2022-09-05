@@ -1,0 +1,32 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  php: circleci/php@1.1.0
+
+jobs:
+  test_current:
+    parameters:
+      php-version:
+        type: string
+    docker:
+      - image: cimg/php:<< parameters.php-version >>
+    steps:
+      - checkout
+      - php/install-php:
+          version: << parameters.php-version >>
+      - php/install-composer
+      - run: rm composer-setup.php
+      - run: sudo -E install-php-extensions dom
+      - php/install-packages
+      - run: vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff
+      - run: vendor/bin/phpunit --verbose
+
+workflows:
+  all-tests:
+    jobs:
+      - test_current:
+          matrix:
+            parameters:
+              php-version: ["7.4", "8.0", "8.1"]
