@@ -1,6 +1,6 @@
 {
-    "name": "yii2mod/yii2-behaviors",
-    "description": "Collection of useful behaviors for Yii Framework 2.0",
+    "name": "dgoriaev/yii2-behaviors",
+    "description": "Collection of useful behaviors for Yii Framework 2.0. Fork for php >= 8.0",
     "type": "yii2-extension",
     "keywords": [
         "yii2",
